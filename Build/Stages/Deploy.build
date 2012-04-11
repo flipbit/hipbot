@@ -1,0 +1,53 @@
+<project name="deploy-stage">
+
+	<target name="Deploy">
+
+        <property name="return.code" value="0" />
+
+        <!-- Stop any existing instances -->
+        <exec program="taskkill" failonerror="false" resultproperty="return.code">
+          <arg value="/f" />
+          <arg value="/im" />
+          <arg value="hipbot.exe" />
+        </exec>
+
+        <!-- Sleep for 5 seconds if processes were running -->
+        <if test="${return.code != '128'}">
+            <sleep seconds="5" />
+        </if>
+
+        <!-- Create Console Directory -->
+        <mkdir dir="${deploy.dir}" if="${not directory::exists(deploy.dir)}"  />
+
+        <!-- Copy binaries to console directory -->
+        <copy todir="${deploy.dir}">
+          <fileset basedir="${root.dir}\Source\HipBot\bin\Release">
+            <include name="**/*.dll" />
+            <include name="**/*.exe" />
+          </fileset>
+        </copy>
+        <copy todir="${deploy.dir}">
+          <fileset basedir="${root.dir}\Source\HipBot.Handlers\bin\Release">
+            <include name="**/*.dll" />
+            <include name="**/*.exe" />
+          </fileset>
+        </copy>
+    		
+    	  <!-- Save for later -->
+        <zip zipfile="${artifacts.dir}\HipBot.${git.revision}.zip">
+    		<fileset basedir="${deploy.dir}">
+    			<include name="**/*.dll" />
+    			<include name="**/*.exe" />
+    		</fileset>
+    	</zip>
+
+        <!-- Write latest version -->
+        <property name="bot.url" value="http://localhost/" />
+        <if test="${environment::variable-exists('BOT_URL')}">
+            <property name="bot.url" value="${environment::get-variable('BOT_URL')}" />
+        </if>
+        <echo file="${artifacts.dir}\version.txt">${bot.url}hipbot.${git.revision}.zip</echo>
+    	
+	</target>
+
+</project>

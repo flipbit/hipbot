@@ -1,0 +1,17 @@
+<project name="HipBot" basedir="." default="RunStages">
+
+	<property name="root.dir" value="${project::get-base-directory()}" readonly="true"/>
+	<property name="environment" value="Local" readonly="false"/>
+
+	<include buildfile="${root.dir}\Build\Properties\Global.build"/>
+	<include buildfile="${root.dir}\Build\Properties\${environment}.build"/>
+
+	<target name="RunStages" depends="SetGlobalProperties,SetProperties">
+		<foreach item="String" in="${stages}" delim="," property="stage">
+			<do>
+				<nant buildfile="${root.dir}\Build\Stages\${stage}.build" target="${stage}" inheritall="true" inheritrefs="false" verbose="true" />
+			</do>
+		</foreach>
+	</target>
+
+</project>

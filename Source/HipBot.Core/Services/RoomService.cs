@@ -5,7 +5,6 @@ using HipBot.Core;
 using HipBot.Domain;
 using HipBot.Interfaces.Services;
 using Sugar;
-using Sugar.Configuration;
 using Sugar.Net;
 
 namespace HipBot.Services

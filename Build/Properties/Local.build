@@ -1,0 +1,9 @@
+<project name="HipBot" basedir="." default="SetProperties">
+
+	<target name="SetProperties">
+
+		<property name="stages" value="Clean,Compile,Deploy" readonly="false"/>
+		
+	</target>
+
+</project>

@@ -1,14 +1,13 @@
-﻿using System;
-using HipBot.Core;
+﻿using HipBot.Core;
 using HipBot.Interfaces.Services;
 using Sugar.Command;
 
-namespace HipBot.Commands
+namespace HipBot.Commands.Rooms
 {
     /// <summary>
     /// Lists all the rooms available.
     /// </summary>
-    public class JoinRoomCommand : BoundCommand<JoinRoomCommand.Options>
+    public class JoinRoom : BoundCommand<JoinRoom.Options>
     {
         public class Options
         {

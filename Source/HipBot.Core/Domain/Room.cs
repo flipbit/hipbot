@@ -62,5 +62,13 @@ namespace HipBot.Domain
         /// The jabber id.
         /// </value>
         public string JabberId { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this room is a one-on-one chat.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is chat; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsChat { get; set; }
     }
 }

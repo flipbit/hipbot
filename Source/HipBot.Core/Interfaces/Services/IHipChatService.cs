@@ -30,6 +30,14 @@ namespace HipBot.Interfaces.Services
         /// <returns></returns>
         bool Join(Room room);
 
+        /// <summary>
+        /// Says the message in the specified room.
+        /// </summary>
+        /// <param name="room">The room.</param>
+        /// <param name="message">The message.</param>
+        /// <param name="html">if set to <c>true</c> HTML formatted message</param>
+        void Say(Room room, string message, bool html = false);
+
         event EventHandler<LoginEventArgs> OnLogin;
 
         event EventHandler<MessageEventArgs> OnMessage;

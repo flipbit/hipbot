@@ -10,6 +10,8 @@ namespace HipBot.Services
     /// </summary>
     public class ConfigService : IConfigService
     {
+        #region Dependencies
+        
         /// <summary>
         /// Gets or sets the file service.
         /// </summary>
@@ -17,6 +19,8 @@ namespace HipBot.Services
         /// The file service.
         /// </value>
         public IFileService FileService { get; set; }
+
+        #endregion
 
         /// <summary>
         /// Gets the configuration.

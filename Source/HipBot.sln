@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HipBot.Core", "HipBot.Core\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HipBot.Test", "HipBot.Test\HipBot.Test.csproj", "{04828B68-A0B4-4A5B-9A09-1CD6A0B8703D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HipBot.Handlers", "HipBot.Handlers\HipBot.Handlers.csproj", "{0949C9E7-329D-4F54-8273-72B1EA1CAA0D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,16 @@ Global
 		{04828B68-A0B4-4A5B-9A09-1CD6A0B8703D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{04828B68-A0B4-4A5B-9A09-1CD6A0B8703D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{04828B68-A0B4-4A5B-9A09-1CD6A0B8703D}.Release|x86.ActiveCfg = Release|Any CPU
+		{0949C9E7-329D-4F54-8273-72B1EA1CAA0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0949C9E7-329D-4F54-8273-72B1EA1CAA0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0949C9E7-329D-4F54-8273-72B1EA1CAA0D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{0949C9E7-329D-4F54-8273-72B1EA1CAA0D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{0949C9E7-329D-4F54-8273-72B1EA1CAA0D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0949C9E7-329D-4F54-8273-72B1EA1CAA0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0949C9E7-329D-4F54-8273-72B1EA1CAA0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0949C9E7-329D-4F54-8273-72B1EA1CAA0D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{0949C9E7-329D-4F54-8273-72B1EA1CAA0D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{0949C9E7-329D-4F54-8273-72B1EA1CAA0D}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -13,6 +13,8 @@ namespace HipBot
     /// </summary>
     public class HipBotConsole : BaseCommandConsole
     {
+        #region Dependencies
+        
         /// <summary>
         /// Gets or sets the hip chat service.
         /// </summary>
@@ -28,6 +30,16 @@ namespace HipBot
         /// The room service.
         /// </value>
         public IRoomService RoomService { get; set; }
+
+        /// <summary>
+        /// Gets or sets the handler service.
+        /// </summary>
+        /// <value>
+        /// The handler service.
+        /// </value>
+        public IHandlerService HandlerService { get; set; }
+
+        #endregion
 
         /// <summary>
         /// Main entry point for the console.
@@ -48,6 +60,8 @@ namespace HipBot
         void HipChatService_OnMessage(object sender, MessageEventArgs e)
         {
             Out.WriteLine("{0:HH:mm:ss} [{1}] {2}", e.Message.Received, e.Message.From, e.Message.Body);
+
+            HandlerService.Handle(e.Message, e.Room);
         }
 
         /// <summary>

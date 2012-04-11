@@ -71,6 +71,7 @@ namespace HipBot.Services
         {
             // Configuration file in user directory
             var directory = FileService.GetUserDataDirectory();
+
             return Path.Combine(directory, "hipbot.config");
         }
     }

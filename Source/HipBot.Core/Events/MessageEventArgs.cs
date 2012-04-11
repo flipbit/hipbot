@@ -15,5 +15,13 @@ namespace HipBot.Events
         /// The message.
         /// </value>
         public Message Message { get; set; }
+
+        /// <summary>
+        /// Gets or sets the room this message was recieved from.
+        /// </summary>
+        /// <value>
+        /// The room.
+        /// </value>
+        public Room Room { get; set; }
     }
 }

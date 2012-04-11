@@ -1,0 +1,17 @@
+<project name="clean-stage">
+
+	<target name="Clean">
+
+		<delete>
+			<fileset basedir="${root.dir}\">
+	          <include name="**\bin\Release\**\*" />
+	          <include name="**\obj\Release\**\*" />
+			</fileset>
+		</delete>
+
+		<delete dir="${artifacts.dir}" if="${directory::exists(artifacts.dir)}" />
+		<mkdir dir="${artifacts.dir}" />
+
+	</target>
+
+</project>

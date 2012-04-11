@@ -38,10 +38,14 @@
     <Reference Include="agsXMPP">
       <HintPath>..\..\References\agsXMPP\agsXMPP.dll</HintPath>
     </Reference>
+    <Reference Include="SevenZipLib">
+      <HintPath>..\..\References\SevenZip\SevenZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="Sugar">
       <HintPath>..\..\References\Sugar\Sugar.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -50,15 +54,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\JoinRoomCommand.cs" />
-    <Compile Include="Commands\LoginCommand.cs" />
-    <Compile Include="Commands\ListRoomsCommand.cs" />
-    <Compile Include="Commands\SetCredentials.cs" />
+    <Compile Include="Commands\AutoUpdate\UpdateNow.cs" />
+    <Compile Include="Commands\AutoUpdate\SetUrl.cs" />
+    <Compile Include="Commands\System\Exit.cs" />
+    <Compile Include="Commands\Nicknames\AddNickname.cs" />
+    <Compile Include="Commands\Rooms\JoinRoom.cs" />
+    <Compile Include="Commands\System\Login.cs" />
+    <Compile Include="Commands\Rooms\ListRooms.cs" />
+    <Compile Include="Commands\Nicknames\ListNicknames.cs" />
+    <Compile Include="Commands\Nicknames\RemoveNickname.cs" />
+    <Compile Include="Commands\System\SetCredentials.cs" />
     <Compile Include="HipBotConsole.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="7z64.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="7z86.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
   </ItemGroup>
@@ -66,6 +83,10 @@
     <ProjectReference Include="..\HipBot.Core\HipBot.Core.csproj">
       <Project>{3E2D69A3-6E8F-4B6F-8489-9CA052D6E009}</Project>
       <Name>HipBot.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HipBot.Handlers\HipBot.Handlers.csproj">
+      <Project>{0949C9E7-329D-4F54-8273-72B1EA1CAA0D}</Project>
+      <Name>HipBot.Handlers</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

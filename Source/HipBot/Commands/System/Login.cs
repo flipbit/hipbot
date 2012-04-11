@@ -1,14 +1,13 @@
-﻿using System;
-using HipBot.Core;
+﻿using HipBot.Core;
 using HipBot.Interfaces.Services;
 using Sugar.Command;
 
-namespace HipBot.Commands
+namespace HipBot.Commands.System
 {
     /// <summary>
     /// Logs into the HipChat network
     /// </summary>
-    public class LoginCommand : BoundCommand<LoginCommand.Options>
+    public class Login : BoundCommand<Login.Options>
     {
         [Flag("login")]
         public class Options {}

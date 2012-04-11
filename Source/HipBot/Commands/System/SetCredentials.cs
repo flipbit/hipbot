@@ -1,10 +1,9 @@
-﻿using System;
-using HipBot.Core;
+﻿using HipBot.Core;
 using HipBot.Domain;
 using HipBot.Interfaces.Services;
 using Sugar.Command;
 
-namespace HipBot.Commands
+namespace HipBot.Commands.System
 {
     /// <summary>
     /// Sets the bots authentication credentials.

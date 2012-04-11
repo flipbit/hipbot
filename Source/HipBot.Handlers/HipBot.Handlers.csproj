@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{04828B68-A0B4-4A5B-9A09-1CD6A0B8703D}</ProjectGuid>
+    <ProjectGuid>{0949C9E7-329D-4F54-8273-72B1EA1CAA0D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>HipBot</RootNamespace>
-    <AssemblyName>HipBot.Test</AssemblyName>
+    <AssemblyName>HipBot.Handlers</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,17 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMoq">
-      <HintPath>..\..\References\Moq\AutoMoq.dll</HintPath>
-    </Reference>
-    <Reference Include="Moq">
-      <HintPath>..\..\References\Moq\Moq.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>..\..\References\NUnit\nunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="Sugar, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -50,10 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FakeHttpResponse.cs" />
+    <Compile Include="Handlers\Processes.cs" />
+    <Compile Include="Handlers\Exec.cs" />
+    <Compile Include="Handlers\Cpu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\CredentialServiceTest.cs" />
-    <Compile Include="Services\UpdateServiceTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HipBot.Core\HipBot.Core.csproj">

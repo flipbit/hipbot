@@ -34,8 +34,15 @@
     <Reference Include="agsXMPP">
       <HintPath>..\..\References\agsXMPP\agsXMPP.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="SevenZipLib">
+      <HintPath>..\..\References\SevenZip\SevenZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="Sugar">
       <HintPath>..\..\References\Sugar\Sugar.dll</HintPath>
+    </Reference>
+    <Reference Include="Sugar.Web">
+      <HintPath>..\..\References\Sugar\Sugar.Web.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -54,15 +61,24 @@
     <Compile Include="Domain\Room.cs" />
     <Compile Include="Events\MessageEventArgs.cs" />
     <Compile Include="Events\LoginEventArgs.cs" />
+    <Compile Include="Handlers\Handler.cs" />
+    <Compile Include="Handlers\HelloHandler.cs" />
+    <Compile Include="Interfaces\Handlers\IHandler.cs" />
     <Compile Include="Interfaces\Services\IConfigService.cs" />
     <Compile Include="Interfaces\Services\ICredentialService.cs" />
+    <Compile Include="Interfaces\Services\IHandlerService.cs" />
     <Compile Include="Interfaces\Services\IHipChatService.cs" />
+    <Compile Include="Interfaces\Services\INicknameService.cs" />
     <Compile Include="Interfaces\Services\IRoomService.cs" />
+    <Compile Include="Interfaces\Services\IUpdateService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ConfigService.cs" />
     <Compile Include="Services\CredentialService.cs" />
+    <Compile Include="Services\HandlerService.cs" />
     <Compile Include="Services\HipChatService.cs" />
+    <Compile Include="Services\NicknameService.cs" />
     <Compile Include="Services\RoomService.cs" />
+    <Compile Include="Services\UpdateService.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

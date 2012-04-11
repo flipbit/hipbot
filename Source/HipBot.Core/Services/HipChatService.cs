@@ -1,5 +1,9 @@
 ﻿using System;
 using agsXMPP;
+using agsXMPP.protocol.client;
+using agsXMPP.protocol.extensions.chatstates;
+using agsXMPP.protocol.extensions.html;
+using agsXMPP.Xml.Dom;
 using HipBot.Core;
 using HipBot.Domain;
 using HipBot.Events;
@@ -45,6 +49,9 @@ namespace HipBot.Services
             // Prevent loop-back
             if (msg.From.Resource == current.Name) return;
 
+            // Ignore composing messages
+            if (msg.Chatstate == Chatstate.composing) return;
+
             // Construct message
             var message = new Message
             {
@@ -55,10 +62,22 @@ namespace HipBot.Services
                 Received = DateTime.Now
             };
 
+            var room = new Room
+            {
+                JabberId = msg.From.User,
+                IsChat = msg.Type == MessageType.chat
+            };
+
+            if (room.IsChat)
+            {
+                room.JabberId = msg.From.User;
+            }
+
             // Construct args
             var args = new MessageEventArgs
             {
-                Message = message
+                Message = message,
+                Room = room
             };
 
             // Fire
@@ -88,10 +107,39 @@ namespace HipBot.Services
             return true;
         }
 
+        public void Say(Room room, string message, bool html = false)
+        {
+            Msg msg;
+
+            if (room.IsChat)
+            {
+                var to = new Jid(room.JabberId, "chat.hipchat.com", string.Empty);
+
+                msg = new Msg(to, current.JabberId, MessageType.chat, message);
+            }
+            else
+            {
+                Out.WriteLine("{0:HH:mm:ss} [{1}] {2}", DateTime.Now, current.Name, message);
+
+                var to = new Jid(room.JabberId, "conf.hipchat.com", string.Empty);
+
+                msg = new Msg(to, current.JabberId, MessageType.groupchat, message);
+            }
+
+            if (html)
+            {
+                msg.Html = new Html();
+                msg.Html.Body = new Body();
+                msg.Html.Body.Value = message;
+            }
+
+            connection.Send(msg);
+        }
+
         public event EventHandler<LoginEventArgs> OnLogin;
 
 
-        void ConnectionOnAuthError(object sender, agsXMPP.Xml.Dom.Element e)
+        void ConnectionOnAuthError(object sender, Element e)
         {
             Out.WriteLine(e.InnerXml);
         }

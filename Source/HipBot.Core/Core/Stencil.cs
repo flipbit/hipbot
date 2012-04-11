@@ -148,9 +148,11 @@ namespace HipBot.Core
         public void Initilize(Options options)
         {
             // Generate interfaces
+            CreateInterfaces(options.Types);
             CreateInterfaces(options.Assemblies);
 
             // Set interface concrete types
+            CreateInterfaceTypes(options.Types, options.UseSingletons);
             CreateInterfaceTypes(options.Assemblies, options.UseSingletons);
         }
 
@@ -174,8 +176,15 @@ namespace HipBot.Core
         /// <param name="assembly">The assembly.</param>
         private void CreateInterfaces(Assembly assembly)
         {
-            var types = assembly.GetTypes();
+            CreateInterfaces(assembly.GetTypes());
+        }
 
+        /// <summary>
+        /// Creates the interfaces.
+        /// </summary>
+        /// <param name="types">The types.</param>
+        private void CreateInterfaces(IEnumerable<Type> types)
+        {
             // Parse interfaces
             foreach (var type in types)
             {
@@ -197,6 +206,11 @@ namespace HipBot.Core
         {
             var types = assembly.GetTypes();
 
+            CreateInterfaceTypes(types, useSingletons);
+        }
+
+        private void CreateInterfaceTypes(IEnumerable<Type> types, bool useSingletons)
+        {
             // Parse concrete types
             foreach (var type in types)
             {
@@ -279,9 +293,14 @@ namespace HipBot.Core
 
             foreach (var @interface in interfaces.OrderBy(i => i.Order))
             {
-                if (@interface.Type == type)
+                if (@interface.Type == type && @interface.ConcreteType != null)
                 {
-                    results.Add(CreateInstanceFromInterfaceValue(@interface));
+                    var result = CreateInstanceFromInterfaceValue(@interface);
+
+                    if (!results.Any(r => r.GetType() == result.GetType()))
+                    {
+                        results.Add(result);
+                    }
                 }
             }
 
@@ -403,12 +422,15 @@ namespace HipBot.Core
         public Options()
         {
             // Default to load types from the current assembly
+            Types = new List<Type>();
             Assemblies = new List<Assembly> { Assembly.GetExecutingAssembly() };
 
             // Use property injection & singletons by default
             UsePropertyInjection = true;
             UseSingletons = true;
         }
+
+        public IList<Type> Types { get; private set; }
 
         /// <summary>
         /// Gets the assemblies used to load the container types from.

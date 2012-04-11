@@ -2,12 +2,12 @@
 using HipBot.Interfaces.Services;
 using Sugar.Command;
 
-namespace HipBot.Commands
+namespace HipBot.Commands.Rooms
 {
     /// <summary>
     /// Lists all the rooms available.
     /// </summary>
-    public class ListRoomsCommand : BoundCommand<ListRoomsCommand.Options>
+    public class ListRooms : BoundCommand<ListRooms.Options>
     {
         [Flag("list", "rooms")]
         public class Options {}
