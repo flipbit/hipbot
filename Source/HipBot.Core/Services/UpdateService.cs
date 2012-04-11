@@ -185,7 +185,7 @@ namespace HipBot.Services
         /// <summary>
         /// Runs the latest version of the bot.
         /// </summary>
-        public void RunLatestVersion()
+        public void RunLatestVersion(bool waitForExit)
         {
             // Don't run latest version if debugging
             if (Debugger.IsAttached) return;
@@ -217,7 +217,7 @@ namespace HipBot.Services
 
             var process = Process.Start(info);
 
-            process.WaitForExit();
+            if (waitForExit) process.WaitForExit();
 
             Environment.Exit(0);
         }

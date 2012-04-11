@@ -28,6 +28,6 @@
         /// <summary>
         /// Runs the latest version of the bot.
         /// </summary>
-        void RunLatestVersion();
+        void RunLatestVersion(bool waitForExit);
     }
 }
