@@ -68,7 +68,7 @@ namespace HipBot
 
             // Get Console
             var service = Stencil.Instance.Resolve<UpdateService>();
-            service.RunLatestVersion();
+            service.RunLatestVersion(true);
 
             // Get Console
             var console = Stencil.Instance.Resolve<HipBotConsole>();
