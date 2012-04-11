@@ -43,12 +43,14 @@ namespace HipBot.Handlers
             {
                 HipChatService.Say(room, "No new version is available.");
             }
+            else
+            {
+                HipChatService.Say(room, "Downloading new version of bot...");
 
-            HipChatService.Say(room, "Downloading new version of bot...");
+                UpdateService.DownloadUpdate();
 
-            UpdateService.DownloadUpdate();
-            
-            HipChatService.Say(room, "New version downloaded.  Recycle me to upgrade.");
+                HipChatService.Say(room, "New version downloaded.  Recycle me to upgrade.");                
+            }
         }
     }
 }

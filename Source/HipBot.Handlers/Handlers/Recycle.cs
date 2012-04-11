@@ -45,7 +45,7 @@ namespace HipBot.Handlers
         {
             HipChatService.Say(room, "Recycling bot.");
 
-            UpdateService.RunLatestVersion(false);
+            UpdateService.RunLatestVersion(false, true);
         }
     }
 }

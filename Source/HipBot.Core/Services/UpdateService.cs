@@ -185,7 +185,7 @@ namespace HipBot.Services
         /// <summary>
         /// Runs the latest version of the bot.
         /// </summary>
-        public void RunLatestVersion(bool waitForExit)
+        public void RunLatestVersion(bool waitForExit, bool allowThisInstance)
         {
             // Don't run latest version if debugging
             if (Debugger.IsAttached) return;
@@ -209,7 +209,10 @@ namespace HipBot.Services
 
             if (string.IsNullOrWhiteSpace(latestVersion)) return;
 
-            if (Process.GetCurrentProcess().MainModule.FileName == latestVersion) return;
+            if (!allowThisInstance)
+            {
+                if (Process.GetCurrentProcess().MainModule.FileName == latestVersion) return;
+            }
 
             Thread.Sleep(1000);
 

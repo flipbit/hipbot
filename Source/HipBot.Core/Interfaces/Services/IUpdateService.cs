@@ -28,6 +28,8 @@
         /// <summary>
         /// Runs the latest version of the bot.
         /// </summary>
-        void RunLatestVersion(bool waitForExit);
+        /// <param name="waitForExit">if set to <c>true</c> wait for the child process to exit.</param>
+        /// <param name="allowThisInstance">if set to <c>true</c> allow this instance to be run again.</param>
+        void RunLatestVersion(bool waitForExit, bool allowThisInstance);
     }
 }
