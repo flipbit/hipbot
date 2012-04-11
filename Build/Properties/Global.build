@@ -19,7 +19,7 @@
     	<property name="git.revision" value="00000000"/>
     	<if test="${environment::variable-exists('GIT_COMMIT')}">
 			<property name="git.revision" value="${environment::get-variable('GIT_COMMIT')}" />
-			<property name="git.revision" value="${string::substring(svn.revision, 32, 8)}" />
+			<property name="git.revision" value="${string::substring(git.revision, 32, 8)}" />
 		</if>
                
       	<echo message="Using GIT revision: ${git.revision}"/>
