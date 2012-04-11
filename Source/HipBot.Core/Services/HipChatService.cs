@@ -107,7 +107,49 @@ namespace HipBot.Services
             return true;
         }
 
-        public void Say(Room room, string message, bool html = false)
+        /// <summary>
+        /// Says the message in the specified room.
+        /// </summary>
+        /// <param name="room">The room.</param>
+        /// <param name="message">The message.</param>
+        public void Say(Room room, string message)
+        {
+            Say(room, message, false);
+        }
+
+        /// <summary>
+        /// Says the message in the specified room.
+        /// </summary>
+        /// <param name="room">The room.</param>
+        /// <param name="message">The message.</param>
+        /// <param name="args">The args.</param>
+        public void Say(Room room, string message, params object[] args)
+        {
+            Say(room, string.Format(message, args), false);
+        }
+
+        /// <summary>
+        /// Says the message in the specified room.
+        /// </summary>
+        /// <param name="room">The room.</param>
+        /// <param name="message">The message.</param>
+        public void SayHtml(Room room, string message)
+        {
+            Say(room, message, true);
+        }
+
+        /// <summary>
+        /// Says the message in the specified room.
+        /// </summary>
+        /// <param name="room">The room.</param>
+        /// <param name="message">The message.</param>
+        /// <param name="args">The args.</param>
+        public void SayHtml(Room room, string message, params object[] args)
+        {
+            Say(room, string.Format(message, args), true);
+        }
+
+        private void Say(Room room, string message, bool html)
         {
             Msg msg;
 
@@ -135,6 +177,7 @@ namespace HipBot.Services
 
             connection.Send(msg);
         }
+
 
         public event EventHandler<LoginEventArgs> OnLogin;
 

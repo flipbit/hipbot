@@ -35,8 +35,30 @@ namespace HipBot.Interfaces.Services
         /// </summary>
         /// <param name="room">The room.</param>
         /// <param name="message">The message.</param>
-        /// <param name="html">if set to <c>true</c> HTML formatted message</param>
-        void Say(Room room, string message, bool html = false);
+        void Say(Room room, string message);
+
+        /// <summary>
+        /// Says the message in the specified room.
+        /// </summary>
+        /// <param name="room">The room.</param>
+        /// <param name="message">The message.</param>
+        /// <param name="args">The args.</param>
+        void Say(Room room, string message, params object[] args);
+
+        /// <summary>
+        /// Says the message in the specified room.
+        /// </summary>
+        /// <param name="room">The room.</param>
+        /// <param name="message">The message.</param>
+        void SayHtml(Room room, string message);
+
+        /// <summary>
+        /// Says the message in the specified room.
+        /// </summary>
+        /// <param name="room">The room.</param>
+        /// <param name="message">The message.</param>
+        /// <param name="args">The args.</param>
+        void SayHtml(Room room, string message, params object[] args);
 
         event EventHandler<LoginEventArgs> OnLogin;
 

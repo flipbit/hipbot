@@ -76,7 +76,7 @@ namespace HipBot.Handlers
                 sb.AppendLine(string.Empty);
             }
 
-            HipChatService.Say(room, sb.ToString(), true);
+            HipChatService.SayHtml(room, sb.ToString(), true);
         }
     }
 }

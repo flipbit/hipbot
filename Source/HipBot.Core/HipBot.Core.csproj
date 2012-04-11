@@ -63,6 +63,7 @@
     <Compile Include="Events\LoginEventArgs.cs" />
     <Compile Include="Handlers\Handler.cs" />
     <Compile Include="Handlers\HelloHandler.cs" />
+    <Compile Include="Handlers\Nicknames\AddNickname.cs" />
     <Compile Include="Interfaces\Handlers\IHandler.cs" />
     <Compile Include="Interfaces\Services\IConfigService.cs" />
     <Compile Include="Interfaces\Services\ICredentialService.cs" />
