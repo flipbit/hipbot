@@ -18,5 +18,11 @@ namespace HipBot.Interfaces.Services
         /// </summary>
         /// <param name="credentials">The credentials.</param>
         void SetCredentials(Credentials credentials);
+
+        /// <summary>
+        /// Determines if the credentials for the HipChat service have been set.
+        /// </summary>
+        /// <returns></returns>
+        bool CredentialsSet();
     }
 }

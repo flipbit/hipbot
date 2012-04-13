@@ -2,14 +2,14 @@
 using HipBot.Interfaces.Services;
 using Sugar.Command;
 
-namespace HipBot.Handlers.Nicknames
+namespace HipBot.Handlers.Rooms
 {
     /// <summary>
     /// Adds a nickname to this bot
     /// </summary>
-    public class AddNickname : Handler<AddNickname.Options>
+    public class LeaveRoom : Handler<LeaveRoom.Options>
     {
-        [Flag("nick")]
+        [Flag("room")]
         public class Options
         {
             /// <summary>
@@ -18,19 +18,19 @@ namespace HipBot.Handlers.Nicknames
             /// <value>
             /// The name.
             /// </value>
-            [Parameter("add", Required = true)]
-            public string Nickname { get; set; }
+            [Parameter("leave", Required = true)]
+            public string Room { get; set; }
         }
 
         #region Dependencies
-        
+
         /// <summary>
-        /// Gets or sets the nickname service.
+        /// Gets or sets the room service.
         /// </summary>
         /// <value>
-        /// The nickname service.
+        /// The room service.
         /// </value>
-        public INicknameService NicknameService { get; set; }
+        public IRoomService RoomService { get; set; }
 
         /// <summary>
         /// Gets or sets the hip chat service.
@@ -50,9 +50,9 @@ namespace HipBot.Handlers.Nicknames
         /// <param name="options">The options.</param>
         public override void Receive(Message message, Room room, Options options)
         {
-            NicknameService.Add(options.Nickname);
+            RoomService.Leave(options.Room);
 
-            HipChatService.Say(room, "Added nickname '{0}'.", options.Nickname);
+            HipChatService.Say(room, "Leaving room '{0}'.", options.Room);
         }
     }
 }

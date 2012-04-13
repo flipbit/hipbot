@@ -1,8 +1,5 @@
-﻿using System.IO;
-using HipBot.Domain;
+﻿using HipBot.Domain;
 using HipBot.Interfaces.Services;
-using Sugar.Configuration;
-using Sugar.IO;
 
 namespace HipBot.Services
 {
@@ -11,13 +8,17 @@ namespace HipBot.Services
     /// </summary>
     public class CredentialService : ICredentialService
     {
+        #region Dependencies
+        
         /// <summary>
-        /// Gets or sets the file service.
+        /// Gets or sets the config service.
         /// </summary>
         /// <value>
-        /// The file service.
+        /// The config service.
         /// </value>
-        public IFileService FileService { get; set; }
+        public IConfigService ConfigService { get; set; }
+
+        #endregion
 
         /// <summary>
         /// Gets the default credentials.
@@ -26,7 +27,7 @@ namespace HipBot.Services
         public Credentials GetCredentials()
         {
             // Get Configuration
-            var config = GetConfiguration();
+            var config = ConfigService.GetConfig();
 
             var credentials = new Credentials
             {
@@ -46,7 +47,7 @@ namespace HipBot.Services
         public void SetCredentials(Credentials credentials)
         {
             // Get Configuration
-            var config = GetConfiguration();
+            var config = ConfigService.GetConfig();
 
             // Set values
             config.SetValue("Credentials", "Name", credentials.Name);
@@ -55,24 +56,19 @@ namespace HipBot.Services
             config.SetValue("Credentials", "ApiToken", credentials.ApiToken);
 
             // Save to disk
-            config.Write(GetConfigurationFilename());
+            ConfigService.SetConfig(config);
         }
 
-        private Config GetConfiguration()
+        /// <summary>
+        /// Determines if the credentials for the HipChat service have been set.
+        /// </summary>
+        /// <returns></returns>
+        public bool CredentialsSet()
         {
-            // Get file location
-            var filename = GetConfigurationFilename();
+            // Get Configuration
+            var config = ConfigService.GetConfig();
 
-            // Load the configuration data
-            return Config.FromFile(filename, FileService);
-        }
-
-        private string GetConfigurationFilename()
-        {
-            // Configuration file in user directory
-            var directory = FileService.GetUserDataDirectory();
-
-            return Path.Combine(directory, "hipbot.config");
+            return !string.IsNullOrWhiteSpace(config.GetValue("Credentials", "Name", string.Empty));
         }
     }
 }

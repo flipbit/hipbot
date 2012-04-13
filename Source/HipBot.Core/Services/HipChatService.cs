@@ -3,6 +3,7 @@ using agsXMPP;
 using agsXMPP.protocol.client;
 using agsXMPP.protocol.extensions.chatstates;
 using agsXMPP.protocol.extensions.html;
+using agsXMPP.protocol.x.muc;
 using agsXMPP.Xml.Dom;
 using HipBot.Core;
 using HipBot.Domain;
@@ -21,29 +22,27 @@ namespace HipBot.Services
         private XmppClientConnection connection;
         private Credentials current;
 
-        public void Login(Credentials credentials)
-        {
-            connection = new XmppClientConnection("chat.hipchat.com");
-
-            connection.OnLogin += ConnectionOnLogin;
-            connection.OnAuthError += ConnectionOnAuthError;
-            connection.OnError += ConnectionOnError;
-            connection.OnMessage += ConnectionOnMessage;
-
-            connection.UseStartTLS = true;
-            connection.Open(credentials.JabberId, credentials.Password, "bot");
-
-            current = credentials;
-        }
+        #region Events
+        
+        /// <summary>
+        /// Occurs when the Bot logs in
+        /// </summary>
+        public event EventHandler<LoginEventArgs> OnLogin;
 
         /// <summary>
-        /// Gets a value indicating whether this instance is logged in.
+        /// Occurs when the Bot receives a message
         /// </summary>
-        /// <value>
-        ///   <c>true</c> if logged in; otherwise, <c>false</c>.
-        /// </value>
-        public bool LoggedIn { get; private set; }
+        public event EventHandler<MessageEventArgs> OnMessage;
 
+        #endregion
+
+        #region Event Handlers
+
+        /// <summary>
+        /// Occurs when an incoming message is received
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="msg">The MSG.</param>
         void ConnectionOnMessage(object sender, Msg msg)
         {
             // Prevent loop-back
@@ -84,25 +83,96 @@ namespace HipBot.Services
             OnMessage(this, args);
         }
 
-        public event EventHandler<MessageEventArgs> OnMessage;
-
+        /// <summary>
+        /// Occurs when the Bot logs in.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
         void ConnectionOnLogin(object sender)
         {
             LoggedIn = true;
 
-
             OnLogin(this, new LoginEventArgs());
         }
 
+        /// <summary>
+        /// Occurs on a authentication error.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
+        void ConnectionOnAuthError(object sender, Element e)
+        {
+            Out.WriteLine(e.InnerXml);
+        }
+
+        /// <summary>
+        /// Occurs on a connection error
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="ex">The ex.</param>
+        void ConnectionOnError(object sender, Exception ex)
+        {
+            Out.WriteLine(ex.Message);
+        } 
+        #endregion
+
+        /// <summary>
+        /// Gets a value indicating whether this instance is logged in.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if logged in; otherwise, <c>false</c>.
+        /// </value>
+        public bool LoggedIn { get; private set; }
+
+        /// <summary>
+        /// Logs in with the specified credentials.
+        /// </summary>
+        /// <param name="credentials">The credentials.</param>
+        public void Login(Credentials credentials)
+        {
+            connection = new XmppClientConnection("chat.hipchat.com");
+
+            connection.OnLogin += ConnectionOnLogin;
+            connection.OnAuthError += ConnectionOnAuthError;
+            connection.OnError += ConnectionOnError;
+            connection.OnMessage += ConnectionOnMessage;
+
+            connection.UseStartTLS = true;
+            connection.Open(credentials.JabberId, credentials.Password, "bot");
+
+            current = credentials;
+        }
+
+        /// <summary>
+        /// Joins the specified room.
+        /// </summary>
+        /// <param name="room">The room.</param>
+        /// <returns></returns>
         public bool Join(Room room)
         {
-            var manager = new agsXMPP.protocol.x.muc.MucManager(connection);
+            var manager = new MucManager(connection);
 
             var jid = new Jid(room.JabberId, "conf.hipchat.com", string.Empty);
 
             manager.JoinRoom(jid, current.Name);
 
-            Out.WriteLine("Joined {0}.", room.Name);
+            Out.WriteLine("Joined room: {0}.", room.Name);
+
+            return true;
+        }
+
+        /// <summary>
+        /// Leaves the specified room.
+        /// </summary>
+        /// <param name="room">The room.</param>
+        public bool Leave(Room room)
+        {
+            var manager = new MucManager(connection);
+
+            var jid = new Jid(room.JabberId, "conf.hipchat.com", string.Empty);
+
+            manager.LeaveRoom(jid, current.Name);
+
+            Out.WriteLine("Left room: {0}.", room.Name);
 
             return true;
         }
@@ -177,20 +247,5 @@ namespace HipBot.Services
 
             connection.Send(msg);
         }
-
-
-        public event EventHandler<LoginEventArgs> OnLogin;
-
-
-        void ConnectionOnAuthError(object sender, Element e)
-        {
-            Out.WriteLine(e.InnerXml);
-        }
-
-        void ConnectionOnError(object sender, Exception ex)
-        {
-            Out.WriteLine(ex.Message);
-        }
-
     }
 }

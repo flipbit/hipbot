@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<users>
+    <user>
+        <user_id>1</user_id>
+        <name>Chris Rivers</name>
+        <email>chris@hipchat.com</email>
+        <title>Developer</title>
+        <photo_url>https://www.hipchat.com/chris.png</photo_url>
+        <status>away</status>
+        <status_message>gym, bbl</status_message>
+        <is_group_admin>1</is_group_admin>
+    </user>
+    <user>
+        <user_id>3</user_id>
+        <name>Peter Curley</name>
+        <email>pete@hipchat.com</email>
+        <title>Designer</title>
+        <photo_url>https://www.hipchat.com/pete.png</photo_url>
+        <status>offline</status>
+        <status_message/>
+        <is_group_admin>1</is_group_admin>
+    </user>
+    <user>
+        <user_id>5</user_id>
+        <name>Garret Heaton</name>
+        <email>garret@hipchat.com</email>
+        <title>Co-founder</title>
+        <photo_url>https://www.hipchat.com/garret.png</photo_url>
+        <status>available</status>
+        <status_message>Come see what I'm working on!</status_message>
+        <is_group_admin>1</is_group_admin>
+    </user>
+</users>

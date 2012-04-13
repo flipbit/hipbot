@@ -50,16 +50,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\System\LoginTest.cs" />
     <Compile Include="FakeHttpResponse.cs" />
+    <Compile Include="Handlers\Nicknames\AddNicknameTest.cs" />
+    <Compile Include="Handlers\Nicknames\RemoveNicknameTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\RoomServiceTest.cs" />
     <Compile Include="Services\CredentialServiceTest.cs" />
+    <Compile Include="Services\NicknameServiceTest.cs" />
     <Compile Include="Services\UpdateServiceTest.cs" />
+    <Compile Include="Services\UserServiceTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HipBot.Core\HipBot.Core.csproj">
       <Project>{3E2D69A3-6E8F-4B6F-8489-9CA052D6E009}</Project>
       <Name>HipBot.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HipBot\HipBot.csproj">
+      <Project>{6C1D12E9-0D15-41F3-ABD5-02F19669A52A}</Project>
+      <Name>HipBot</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Examples\RoomList.xml" />
+    <Content Include="Examples\UserList.xml" />
+    <Content Include="Examples\UserShow.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

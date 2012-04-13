@@ -7,23 +7,13 @@ namespace HipBot.Handlers.Nicknames
     /// <summary>
     /// Adds a nickname to this bot
     /// </summary>
-    public class AddNickname : Handler<AddNickname.Options>
+    public class ListNickname : Handler<ListNickname.Options>
     {
-        [Flag("nick")]
-        public class Options
-        {
-            /// <summary>
-            /// Gets or sets the name.
-            /// </summary>
-            /// <value>
-            /// The name.
-            /// </value>
-            [Parameter("add", Required = true)]
-            public string Nickname { get; set; }
-        }
+        [Flag("nick", "list")]
+        public class Options { }
 
         #region Dependencies
-        
+
         /// <summary>
         /// Gets or sets the nickname service.
         /// </summary>
@@ -50,9 +40,12 @@ namespace HipBot.Handlers.Nicknames
         /// <param name="options">The options.</param>
         public override void Receive(Message message, Room room, Options options)
         {
-            NicknameService.Add(options.Nickname);
+            HipChatService.Say(room, "I answer to the following names:");
 
-            HipChatService.Say(room, "Added nickname '{0}'.", options.Nickname);
+            foreach (var name in NicknameService.List())
+            {
+                HipChatService.Say(room, name);
+            }
         }
     }
 }

@@ -7,7 +7,7 @@ namespace HipBot.Handlers.Nicknames
     /// <summary>
     /// Adds a nickname to this bot
     /// </summary>
-    public class AddNickname : Handler<AddNickname.Options>
+    public class RemoveNickname : Handler<RemoveNickname.Options>
     {
         [Flag("nick")]
         public class Options
@@ -18,7 +18,7 @@ namespace HipBot.Handlers.Nicknames
             /// <value>
             /// The name.
             /// </value>
-            [Parameter("add", Required = true)]
+            [Parameter("remove", Required = true)]
             public string Nickname { get; set; }
         }
 
@@ -50,9 +50,9 @@ namespace HipBot.Handlers.Nicknames
         /// <param name="options">The options.</param>
         public override void Receive(Message message, Room room, Options options)
         {
-            NicknameService.Add(options.Nickname);
+            NicknameService.Remove(options.Nickname);
 
-            HipChatService.Say(room, "Added nickname '{0}'.", options.Nickname);
+            HipChatService.Say(room, "Removed nickname '{0}'.", options.Nickname);
         }
     }
 }

@@ -56,17 +56,13 @@ namespace HipBot
             Stencil.Defaults.Assemblies.Add(typeof(Stencil).Assembly);
             Stencil.Defaults.Assemblies.Add(typeof(ICommand).Assembly);
 
-            Out.WriteLine("Handlers: {0}", Handlers.Count);
-
             // Register handlers
             foreach (var handler in Handlers)
             {
-                Out.WriteLine("Loading: {0}", handler.GetType());
-
                 Stencil.Defaults.Types.Add(handler.GetType());
             }
 
-            // Get Console
+            // Run latest version
             var service = Stencil.Instance.Resolve<UpdateService>();
             service.RunLatestVersion(true, false);
 

@@ -54,6 +54,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\Authentication\Authenticate.cs" />
+    <Compile Include="Commands\Authentication\SetPassword.cs" />
+    <Compile Include="Commands\Authentication\SetUser.cs" />
     <Compile Include="Commands\AutoUpdate\UpdateNow.cs" />
     <Compile Include="Commands\AutoUpdate\SetUrl.cs" />
     <Compile Include="Commands\System\Exit.cs" />
@@ -64,6 +67,7 @@
     <Compile Include="Commands\Nicknames\ListNicknames.cs" />
     <Compile Include="Commands\Nicknames\RemoveNickname.cs" />
     <Compile Include="Commands\System\SetCredentials.cs" />
+    <Compile Include="Commands\Users\ListUsers.cs" />
     <Compile Include="HipBotConsole.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

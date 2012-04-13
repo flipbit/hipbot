@@ -6,6 +6,7 @@ using HipBot.Domain;
 using HipBot.Interfaces.Services;
 using Sugar;
 using Sugar.Net;
+using Sugar.Xml;
 
 namespace HipBot.Services
 {
@@ -50,32 +51,38 @@ namespace HipBot.Services
         /// Gets all the rooms.
         /// </summary>
         /// <returns></returns>
-        public IList<Room> GetRooms()
+        public IList<Room> List()
         {
             var rooms = new List<Room>();
 
             var credentials = CredentialService.GetCredentials();
 
-            var url = "https://api.hipchat.com/v1/rooms/list?format=json&auth_token=" + credentials.ApiToken;
+            var url = "https://api.hipchat.com/v1/rooms/list?format=xml&auth_token=" + credentials.ApiToken;
 
             var response = HttpService.Get(url);
 
             if (response.Success)
             {
-                var json = response.ToJson();
+                var xml = response.ToXml();
 
-                foreach (var room in json.rooms)
+                foreach (var node in xml.GetMatches("//room"))
                 {
-                    var result = new Room();
+                    var room = new Room();
 
-                    result.Id = Convert.ToInt32(room.id);
-                    result.Name = room.name;
-                    result.JabberId = room.xmpp_jid;
+                    room.Id = node.GetInnerXml("//room_id").AsInt32();
+                    room.Name = node.GetInnerXml("//name");
+                    room.Topic = node.GetInnerXml("//topic");
+                    room.LastActive = node.GetInnerXml("//last_actice").ToDouble().FromUnixTimestamp();
+                    room.Created = node.GetInnerXml("//created").ToDouble().FromUnixTimestamp(); ;
+                    room.OwnerUserId = node.GetInnerXml("//owner_user_id").AsInt32();
+                    room.IsArchived = node.GetInnerXml("//is_archived") == "1";
+                    room.IsPrivate = node.GetInnerXml("//is_private") == "1";
+                    room.JabberId = node.GetInnerXml("//xmpp_jid");
 
                     // Strip domain part
-                    result.JabberId = result.JabberId.SubstringBeforeChar("@");
+                    room.JabberId = room.JabberId.SubstringBeforeChar("@");
 
-                    rooms.Add(result);
+                    rooms.Add(room);
                 }
             }
 
@@ -91,7 +98,7 @@ namespace HipBot.Services
         {
             var joined = false;
 
-            var rooms = GetRooms();
+            var rooms = List();
 
             foreach (var room in rooms)
             {
@@ -122,6 +129,41 @@ namespace HipBot.Services
         }
 
         /// <summary>
+        /// Leaves the room with the specified name.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public bool Leave(string name)
+        {
+            var left = false;
+
+            var rooms = List();
+
+            foreach (var room in rooms)
+            {
+                // Check room name
+                if (string.Compare(name, room.Name, true) != 0) continue;
+
+                var config = ConfigService.GetConfig();
+
+                config.Delete("rooms", room.Name);
+
+                ConfigService.SetConfig(config);
+
+                if (HipChatService.LoggedIn)
+                {
+                    HipChatService.Leave(room);
+                }
+
+                left = true;
+
+                break;
+            }
+
+            return left;
+        }
+
+        /// <summary>
         /// Reconnects all rooms on login.
         /// </summary>
         public void Reconnect()
@@ -135,7 +177,7 @@ namespace HipBot.Services
 
             var lines = config.GetSection("Rooms");
 
-            var rooms = GetRooms();
+            var rooms = List();
 
             foreach (var line in lines)
             {

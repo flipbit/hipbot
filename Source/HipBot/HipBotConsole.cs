@@ -39,6 +39,14 @@ namespace HipBot
         /// </value>
         public IHandlerService HandlerService { get; set; }
 
+        /// <summary>
+        /// Gets or sets the credential service.
+        /// </summary>
+        /// <value>
+        /// The credential service.
+        /// </value>
+        public ICredentialService CredentialService { get; set; }
+
         #endregion
 
         /// <summary>
@@ -87,6 +95,13 @@ namespace HipBot
 
             Console.WriteLine("HipBot.");
             Console.Write(">");
+
+            if (CredentialService.CredentialsSet())
+            {
+                var credentials = CredentialService.GetCredentials();
+
+                HipChatService.Login(credentials);
+            }
 
             while (true)
             {

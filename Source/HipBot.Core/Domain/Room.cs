@@ -32,6 +32,14 @@ namespace HipBot.Domain
         public string Topic { get; set; }
 
         /// <summary>
+        /// Gets or sets the created.
+        /// </summary>
+        /// <value>
+        /// The created.
+        /// </value>
+        public DateTime Created { get; set; }
+
+        /// <summary>
         /// Gets or sets the last active.
         /// </summary>
         /// <value>
@@ -45,7 +53,7 @@ namespace HipBot.Domain
         /// <value>
         /// The owner id.
         /// </value>
-        public int OwnerId { get; set; }
+        public int OwnerUserId { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is archived.
@@ -56,19 +64,27 @@ namespace HipBot.Domain
         public bool IsArchived { get; set; }
 
         /// <summary>
-        /// Gets or sets the jabber id.
-        /// </summary>
-        /// <value>
-        /// The jabber id.
-        /// </value>
-        public string JabberId { get; set; }
-
-        /// <summary>
         /// Gets or sets a value indicating whether this room is a one-on-one chat.
         /// </summary>
         /// <value>
         ///   <c>true</c> if this instance is chat; otherwise, <c>false</c>.
         /// </value>
         public bool IsChat { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is private.
+        /// </summary>
+        /// <value>
+        /// 	<c>true</c> if this instance is private; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsPrivate { get; set; }
+
+        /// <summary>
+        /// Gets or sets the jabber id.
+        /// </summary>
+        /// <value>
+        /// The jabber id.
+        /// </value>
+        public string JabberId { get; set; }
     }
 }

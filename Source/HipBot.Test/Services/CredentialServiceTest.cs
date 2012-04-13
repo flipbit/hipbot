@@ -1,4 +1,5 @@
-﻿using HipBot.Interfaces.Services;
+﻿using HipBot.Domain;
+using HipBot.Interfaces.Services;
 using Moq;
 using NUnit.Framework;
 using Sugar.Configuration;
@@ -40,7 +41,55 @@ namespace HipBot.Services
         [Test]
         public void TestStoreCredentials()
         {
-            
+            var config = new Config();
+
+            var credentials = new Credentials
+            {
+                Name = "Bob",
+                JabberId = "123",
+                Password = "Password",
+                ApiToken = "123456"
+            };
+
+            Mock<IConfigService>()
+                .Setup(call => call.GetConfig())
+                .Returns(config);
+
+            service.SetCredentials(credentials);
+
+            Assert.AreEqual("123456", config.GetValue("Credentials", "ApiToken", string.Empty));
+            Assert.AreEqual("123", config.GetValue("Credentials", "JabberID", string.Empty));
+            Assert.AreEqual("Bob", config.GetValue("Credentials", "Name", string.Empty));
+            Assert.AreEqual("Password", config.GetValue("Credentials", "Password", string.Empty));
+        }
+
+        [Test]
+        public void TestGetCredentialsWhenSet()
+        {
+            var config = new Config();
+            config.SetValue("Credentials", "Name", "Bob");
+
+            Mock<IConfigService>()
+                .Setup(call => call.GetConfig())
+                .Returns(config);
+
+            var result = service.CredentialsSet();
+
+            Assert.AreEqual(true, result);
+        }
+
+        [Test]
+        public void TestGetCredentialsWhenNotSet()
+        {
+            var config = new Config();
+
+            Mock<IConfigService>()
+                .Setup(call => call.GetConfig())
+                .Returns(config);
+
+            var result = service.CredentialsSet();
+
+            Assert.AreEqual(false, result);
         }
     }
 }

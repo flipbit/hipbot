@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<rooms>
+    <room>
+        <room_id>7</room_id>
+        <name>Development</name>
+        <topic>Make sure to document your API functions well!</topic>
+        <last_active>1269020400</last_active>
+        <created>1269010311</created>
+        <owner_user_id>1</owner_user_id>
+        <is_archived>0</is_archived>
+        <is_private>0</is_private>
+        <xmpp_jid>7_development@conf.hipchat.com</xmpp_jid>
+    </room>
+    <room>
+        <room_id>10</room_id>
+        <name>Ops</name>
+        <topic>Chef is so awesome.</topic>
+        <last_active>1269010500</last_active>
+        <created>1269010211</created>
+        <owner_user_id>5</owner_user_id>
+        <is_archived>0</is_archived>
+        <is_private>1</is_private>
+        <xmpp_jid>10_ops@conf.hipchat.com</xmpp_jid>
+    </room>
+</rooms>

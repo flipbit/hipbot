@@ -14,8 +14,6 @@ namespace HipBot.Services
     /// </summary>
     public class NicknameService : INicknameService
     {
-        private Config cfg;
-
         #region Dependencies
         
         /// <summary>
@@ -24,31 +22,9 @@ namespace HipBot.Services
         /// <value>
         /// The file service.
         /// </value>
-        public IFileService FileService { get; set; }
+        public IConfigService ConfigService { get; set; }
 
         #endregion
-
-        private Config GetConfiguration()
-        {
-            if (cfg == null)
-            {
-                // Get file location
-                var filename = GetConfigurationFilename();
-
-                // Load the configuration data
-                cfg = Config.FromFile(filename, FileService);
-            }
-
-            return cfg;
-        }
-
-        private string GetConfigurationFilename()
-        {
-            // Configuration file in user directory
-            var directory = FileService.GetUserDataDirectory();
-
-            return Path.Combine(directory, "hipbot.config");
-        }
 
         /// <summary>
         /// Adds the specified nickname to this bot.
@@ -57,12 +33,12 @@ namespace HipBot.Services
         public void Add(string nickname)
         {
             // Get Configuration
-            var config = GetConfiguration();
+            var config = ConfigService.GetConfig();
 
             config.SetValue("Nicknames", nickname, string.Empty);
 
             // Save to disk
-            config.Write(GetConfigurationFilename());
+            ConfigService.SetConfig(config);
         }
 
         /// <summary>
@@ -72,12 +48,12 @@ namespace HipBot.Services
         public void Remove(string nickname)
         {
             // Get Configuration
-            var config = GetConfiguration();
+            var config = ConfigService.GetConfig();
 
             config.Delete("Nicknames", nickname);
 
             // Save to disk
-            config.Write(GetConfigurationFilename());
+            ConfigService.SetConfig(config);
         }
 
         /// <summary>
@@ -87,7 +63,7 @@ namespace HipBot.Services
         public IList<string> List()
         {
             // Get Configuration
-            var config = GetConfiguration();
+            var config = ConfigService.GetConfig();
 
             return config.GetSection("Nicknames").Select(l => l.Key).ToList();
         }
@@ -101,11 +77,13 @@ namespace HipBot.Services
         /// </returns>
         public bool IsAddressedToMe(Message message)
         {
+            // Ignore empty messages
             if (string.IsNullOrWhiteSpace(message.Body))
             {
                 return false;
             }
 
+            // Check each list
             foreach (var nick in List())
             {
                 if (message.Body.IndexOf(nick + " ", 0, StringComparison.InvariantCultureIgnoreCase) == 0)

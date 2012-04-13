@@ -3,14 +3,14 @@ using HipBot.Interfaces.Services;
 using Sugar;
 using Sugar.Command;
 
-namespace HipBot.Commands.Rooms
+namespace HipBot.Commands.Users
 {
     /// <summary>
     /// Lists all the rooms available.
     /// </summary>
-    public class ListRooms : BoundCommand<ListRooms.Options>
+    public class ListUsers : BoundCommand<ListUsers.Options>
     {
-        [Flag("room", "list")]
+        [Flag("user", "list")]
         public class Options {}
 
         /// <summary>
@@ -19,7 +19,7 @@ namespace HipBot.Commands.Rooms
         /// <value>
         /// The room service.
         /// </value>
-        public IRoomService RoomService { get; set; }
+        public IUserService UserService { get; set; }
 
         /// <summary>
         /// Executes the specified options.
@@ -27,14 +27,14 @@ namespace HipBot.Commands.Rooms
         /// <param name="options">The options.</param>
         public override void Execute(Options options)
         {
-            var rooms = RoomService.List();
+            var users = UserService.List();
 
-            var table = new TextTable("Name", "Jabber ID");
+            var table = new TextTable("Name", "Email", "ID");
             table.AddSeperator();
 
-            foreach (var room in rooms)
+            foreach (var user in users)
             {
-                table.AddRow(room.Name, room.JabberId);
+                table.AddRow(user.Name, user.Email, user.Id);
             }
 
             Out.WriteLine(table.ToString());

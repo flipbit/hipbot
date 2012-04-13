@@ -2,25 +2,24 @@
 using HipBot.Interfaces.Services;
 using Sugar.Command;
 
-namespace HipBot.Commands.System
+namespace HipBot.Commands.Authentication
 {
     /// <summary>
-    /// Logs into the HipChat network
+    /// Sets the bots authentication credentials.
     /// </summary>
-    public class Login : BoundCommand<Login.Options>
+    public class Authenticate : BoundCommand<Authenticate.Options>
     {
-        [Flag("login")]
-        public class Options {}
-
-        #region Dependencies
-        
-        /// <summary>
-        /// Gets or sets the hip chat service.
-        /// </summary>
-        /// <value>
-        /// The hip chat service.
-        /// </value>
-        public IHipChatService HipChatService { get; set; }
+        public class Options
+        {
+            /// <summary>
+            /// Gets or sets the API token to use.
+            /// </summary>
+            /// <value>
+            /// The token.
+            /// </value>
+            [Parameter("auth", Required = true)]
+            public string ApiToken { get; set; }
+        }
 
         /// <summary>
         /// Gets or sets the credential service.
@@ -30,8 +29,6 @@ namespace HipBot.Commands.System
         /// </value>
         public ICredentialService CredentialService { get; set; }
 
-        #endregion
-
         /// <summary>
         /// Executes the specified options.
         /// </summary>
@@ -40,9 +37,11 @@ namespace HipBot.Commands.System
         {
             var credentials = CredentialService.GetCredentials();
 
-            Out.WriteLine("Logging in as {0}...", credentials.JabberId);
+            credentials.ApiToken = options.ApiToken;
 
-            HipChatService.Login(credentials);
+            CredentialService.SetCredentials(credentials);
+
+            Out.WriteLine("Set API Token.");
         }
     }
 }

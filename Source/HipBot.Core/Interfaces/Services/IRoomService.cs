@@ -12,7 +12,7 @@ namespace HipBot.Interfaces.Services
         /// Gets all the rooms.
         /// </summary>
         /// <returns></returns>
-        IList<Room> GetRooms();
+        IList<Room> List();
 
         /// <summary>
         /// Joins the room with the specified name.
@@ -22,8 +22,16 @@ namespace HipBot.Interfaces.Services
         bool Join(string name);
 
         /// <summary>
+        /// Leaves the room with the specified name.
+        /// </summary>
+        /// <param name="room">The room.</param>
+        /// <returns></returns>
+        bool Leave(string name);
+
+        /// <summary>
         /// Reconnects all rooms on login.
         /// </summary>
         void Reconnect();
+
     }
 }

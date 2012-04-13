@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<user>
+    <user_id>5</user_id>
+    <name>Garret Heaton</name>
+    <email>garret@hipchat.com</email>
+    <title>Co-founder</title>
+    <photo_url>https://www.hipchat.com/img/silhouette_125.png</photo_url>
+    <status>available</status>
+    <status_message>Come see what I'm working on!</status_message>
+    <is_group_admin>1</is_group_admin>
+</user>

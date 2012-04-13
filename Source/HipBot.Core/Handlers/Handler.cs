@@ -36,6 +36,11 @@ namespace HipBot.Handlers
         /// <param name="room"></param>
         public void Receive(Message message, Room room)
         {
+            if (options == null)
+            {
+                CanHandle(message);
+            }
+
             Receive(message, room, options);
         }
 

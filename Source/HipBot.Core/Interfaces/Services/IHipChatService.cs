@@ -10,6 +10,16 @@ namespace HipBot.Interfaces.Services
     public interface IHipChatService
     {
         /// <summary>
+        /// Occurs when the Bot logs in
+        /// </summary>
+        event EventHandler<LoginEventArgs> OnLogin;
+
+        /// <summary>
+        /// Occurs when the Bot receives a message
+        /// </summary>
+        event EventHandler<MessageEventArgs> OnMessage;
+
+        /// <summary>
         /// Logs in with the specified credentials.
         /// </summary>
         /// <param name="credentials">The credentials.</param>
@@ -29,6 +39,12 @@ namespace HipBot.Interfaces.Services
         /// <param name="room">The room.</param>
         /// <returns></returns>
         bool Join(Room room);
+
+        /// <summary>
+        /// Leaves the specified room.
+        /// </summary>
+        /// <param name="room">The room.</param>
+        bool Leave(Room room);
 
         /// <summary>
         /// Says the message in the specified room.
@@ -60,8 +76,5 @@ namespace HipBot.Interfaces.Services
         /// <param name="args">The args.</param>
         void SayHtml(Room room, string message, params object[] args);
 
-        event EventHandler<LoginEventArgs> OnLogin;
-
-        event EventHandler<MessageEventArgs> OnMessage;
     }
 }

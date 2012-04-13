@@ -48,8 +48,15 @@ namespace HipBot.Services
         {
             // Configuration file in user directory
             var directory = FileService.GetUserDataDirectory();
+            directory = Path.Combine(directory, "HipBot");
 
-            return Path.Combine(directory, "hipbot.config");
+            // Ensure directory exists
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
+            return Path.Combine(directory, "HipBot.config");
         }
     }
 }
