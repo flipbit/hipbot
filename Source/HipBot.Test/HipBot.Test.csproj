@@ -52,9 +52,14 @@
   <ItemGroup>
     <Compile Include="Commands\System\LoginTest.cs" />
     <Compile Include="FakeHttpResponse.cs" />
+    <Compile Include="Handlers\Aliases\AddAliasTest.cs" />
+    <Compile Include="Handlers\Aliases\RemoveAliasTest.cs" />
+    <Compile Include="Handlers\FakeHandler.cs" />
     <Compile Include="Handlers\Nicknames\AddNicknameTest.cs" />
     <Compile Include="Handlers\Nicknames\RemoveNicknameTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AliasServiceTest.cs" />
+    <Compile Include="Services\HandlerServiceTest.cs" />
     <Compile Include="Services\RoomServiceTest.cs" />
     <Compile Include="Services\CredentialServiceTest.cs" />
     <Compile Include="Services\NicknameServiceTest.cs" />

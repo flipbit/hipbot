@@ -190,10 +190,17 @@ namespace HipBot.Services
             // Don't run latest version if debugging
             if (Debugger.IsAttached) return;
 
-            var userDirectory = FileService.GetUserDataDirectory();
-            var searchPath = Path.Combine(userDirectory, "hipbot");
+            // Get HipBot config directory
+            var directory = FileService.GetUserDataDirectory();
+            directory = Path.Combine(directory, "hipbot");
 
-            var files = Directory.GetFiles(searchPath, "hipbot.exe", SearchOption.AllDirectories);
+            // Ensure target directory exists
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
+            var files = Directory.GetFiles(directory, "hipbot.exe", SearchOption.AllDirectories);
 
             var latestVersion = string.Empty;
             var latestBuildDate = new DateTime(2000, 1, 1);

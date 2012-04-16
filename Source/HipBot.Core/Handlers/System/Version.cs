@@ -1,15 +1,16 @@
-﻿using HipBot.Domain;
+﻿using System.IO;
+using HipBot.Domain;
 using HipBot.Interfaces.Services;
 using Sugar.Command;
 
-namespace HipBot.Handlers
+namespace HipBot.Handlers.System
 {
     /// <summary>
     /// Says hello to the sender
     /// </summary>
-    public class HelloHandler : Handler<HelloHandler.Options>
+    public class Version : Handler<Version.Options>
     {
-        [Flag("hello")]
+        [Flag("version")]
         public class Options {}
 
         /// <summary>
@@ -28,7 +29,12 @@ namespace HipBot.Handlers
         /// <param name="options">The options.</param>
         public override void Receive(Message message, Room room, Options options)
         {
-            HipChatService.Say(room, "Hello " + message.From);
+            var assembly = typeof (Version).Assembly.GetName().Version;
+            var location = typeof (Version).Assembly.Location;
+            var built = File.GetLastWriteTime(location);
+
+            HipChatService.Say(room, "Version: {0}", assembly);
+            HipChatService.Say(room, "Built: {0:dd MMM yyyy} at {0:HH:mm}", built);
         }
     }
 }

@@ -94,14 +94,16 @@ namespace HipBot
             In.Listen();
 
             Console.WriteLine("HipBot.");
-            Console.Write(">");
 
+          
             if (CredentialService.CredentialsSet())
             {
                 var credentials = CredentialService.GetCredentials();
 
                 HipChatService.Login(credentials);
             }
+
+            Console.Write("{0:HH:mm:ss} >", DateTime.Now);
 
             while (true)
             {
@@ -120,7 +122,7 @@ namespace HipBot
                 Console.WriteLine("Unknown command: {0}", Arguments.FirstOrDefault());
             }
 
-            Console.Write(">");
+            Console.Write("{0:HH:mm:ss} >", DateTime.Now);
         }      
     }
 }

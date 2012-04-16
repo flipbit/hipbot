@@ -16,6 +16,7 @@ namespace HipBot.Core
 
         // State
         private readonly List<Interface> interfaces;
+        private Options instanceOptions;
 
         /// <summary>
         /// Gets the Stencil Singleton.
@@ -147,6 +148,9 @@ namespace HipBot.Core
         /// </summary>
         public void Initilize(Options options)
         {
+            // Save options
+            instanceOptions = options;
+
             // Generate interfaces
             CreateInterfaces(options.Types);
             CreateInterfaces(options.Assemblies);
@@ -188,8 +192,15 @@ namespace HipBot.Core
             // Parse interfaces
             foreach (var type in types)
             {
+                var t = type;
+
+                // Ignore interfaces
                 if (!type.IsInterface) continue;
 
+                // Ignore duplicate types
+                if (interfaces.Any(i => i.Type == t)) continue;                
+
+                // Add new type
                 interfaces.Add(new Interface(type));
             }
         }
@@ -215,36 +226,41 @@ namespace HipBot.Core
             foreach (var type in types)
             {
                 // Skip interfaces
-                if (type.IsInterface) continue;
+                AddType(type, useSingletons);
+            }
+        }
 
-                // Skip abstract classes
-                if (type.IsAbstract) continue;                
+        private void AddType(Type type, bool useSingletons)
+        {
+            if (type.IsInterface) return;
 
-                // Check is type implements an interface we've processed
-                foreach (var @interface in interfaces)
+            // Skip abstract classes
+            if (type.IsAbstract) return;
+
+            // Check is type implements an interface we've processed
+            foreach (var @interface in interfaces)
+            {
+                if (!@interface.CanCreate(type)) continue;
+
+                @interface.IsSingleton = useSingletons;
+
+                // Assign this concrete type to the interface
+                if (@interface.ConcreteType == null)
                 {
-                    if (!@interface.CanCreate(type)) continue;
-
-                    @interface.IsSingleton = useSingletons;
-
-                    // Assign this concrete type to the interface
-                    if (@interface.ConcreteType == null)
-                    {
-                        @interface.Order = GetOrder(type);
-                        @interface.ConcreteType = type;
-                    }
-                    else
-                    {
-                        // Allow multiple classes to implement the same interface
-                        var clone = (Interface)@interface.Clone();
-                        clone.Order = GetOrder(type);
-                        clone.ConcreteType = type;
-
-                        @interfaces.Add(clone);
-                    }
-
-                    break;
+                    @interface.Order = GetOrder(type);
+                    @interface.ConcreteType = type;
                 }
+                else
+                {
+                    // Allow multiple classes to implement the same interface
+                    var clone = (Interface)@interface.Clone();
+                    clone.Order = GetOrder(type);
+                    clone.ConcreteType = type;
+
+                    @interfaces.Add(clone);
+                }
+
+                break;
             }
         }
 
@@ -408,6 +424,32 @@ namespace HipBot.Core
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Adds the given type to this instance.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        public void AddType(Type type)
+        {
+            AddType(type, instanceOptions.UseSingletons);
+        }
+
+        /// <summary>
+        /// Removes the given type from this instance.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        public void RemoveType(Type type)
+        {
+            for (var i = interfaces.Count - 1; i >= 0; i--)
+            {
+                var @interface = interfaces[i];
+
+                if (@interface.ConcreteType == type)
+                {
+                    interfaces.RemoveAt(i);
+                }
+            }
         }
     }
 

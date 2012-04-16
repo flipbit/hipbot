@@ -6,6 +6,8 @@ namespace HipBot.Core
 {
     public static class In
     {
+        private static readonly StringBuilder sb = new StringBuilder();
+
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="In"/> is listening.
         /// </summary>
@@ -23,7 +25,6 @@ namespace HipBot.Core
             thread.Start();
         }
 
-        private static StringBuilder sb = new StringBuilder();
 
         private static void Listener()
         {
@@ -36,11 +37,14 @@ namespace HipBot.Core
                 if (key.Key == ConsoleKey.Enter)
                 {
                     OnInput(new OnInputArgs {Input = sb.ToString()});
+
                     sb.Clear();
                 }
                 else
                 {
                     sb.Append(key.KeyChar);
+
+
                 }
             }
         }

@@ -155,7 +155,7 @@ namespace HipBot.Services
 
             manager.JoinRoom(jid, current.Name);
 
-            Out.WriteLine("Joined room: {0}.", room.Name);
+            Out.WriteLine("{1:HH:mm:ss} Joined room: {0}.", room.Name, DateTime.Now);
 
             return true;
         }
