@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using HipBot.Domain;
 using HipBot.Services;
 using Sugar.Command;
@@ -30,6 +31,8 @@ namespace HipBot.Handlers.System
         public override void Receive(Message message, Room room, Options options)
         {
             HipChatService.Say(room, "Exiting bot.");
+
+            Thread.Sleep(100);
 
             Environment.Exit(0);
         }

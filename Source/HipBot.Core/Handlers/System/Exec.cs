@@ -1,9 +1,12 @@
-﻿using System.ComponentModel.Composition;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Diagnostics;
 using System.Text;
 using HipBot.Core;
 using HipBot.Domain;
 using HipBot.Services;
+using Sugar;
 using Sugar.Command;
 
 namespace HipBot.Handlers.System
@@ -24,6 +27,8 @@ namespace HipBot.Handlers.System
             public string Arguments { get; set; }
         }
 
+        private IList<string> lines = new List<string>();
+
         /// <summary>
         /// Gets or sets the hip chat service.
         /// </summary>
@@ -40,7 +45,9 @@ namespace HipBot.Handlers.System
         /// <param name="options">The options.</param>
         public override void Receive(Message message, Room room, Options options)
         {
-            var sb = new StringBuilder();
+            HipChatService.Say(room, "Starting process..");
+
+            lines.Clear();
 
             var process = new Process
             {              
@@ -53,7 +60,7 @@ namespace HipBot.Handlers.System
                 }
             };
 
-            process.OutputDataReceived += new DataReceivedEventHandler(process_OutputDataReceived);
+            process.OutputDataReceived += process_OutputDataReceived;
 
             Out.WriteLine("Starting Process");
 
@@ -63,11 +70,23 @@ namespace HipBot.Handlers.System
             process.WaitForExit();
 
             Out.WriteLine("Finished Process");
+
+            var result = lines.Join(Environment.NewLine);
+
+            HipChatService.SayHtml(room, result);
         }
 
         void process_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
-            throw new global::System.NotImplementedException();
+            if (!string.IsNullOrWhiteSpace(e.Data))
+            {
+                lines.Add(e.Data);
+
+                if (lines.Count > 30)
+                {
+                    lines.RemoveAt(0);
+                }
+            }
         }
     }
 }
