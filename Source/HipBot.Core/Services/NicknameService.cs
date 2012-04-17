@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using HipBot.Domain;
-using HipBot.Interfaces.Services;
 using Sugar.Configuration;
 using Sugar.IO;
 

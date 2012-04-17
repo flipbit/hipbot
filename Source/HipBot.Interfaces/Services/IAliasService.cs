@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace HipBot.Interfaces.Services
+namespace HipBot.Services
 {
     /// <summary>
     /// Interface for the Alias Service

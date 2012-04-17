@@ -2,7 +2,7 @@
 using HipBot.Domain;
 using HipBot.Events;
 
-namespace HipBot.Interfaces.Services
+namespace HipBot.Services
 {
     /// <summary>
     /// Interface for accessing the HipChat network.

@@ -1,6 +1,6 @@
 ﻿using Sugar.Configuration;
 
-namespace HipBot.Interfaces.Services
+namespace HipBot.Services
 {
     /// <summary>
     /// Service interface for the Configuration.

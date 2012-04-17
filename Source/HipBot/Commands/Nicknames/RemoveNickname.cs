@@ -1,4 +1,4 @@
-﻿using HipBot.Interfaces.Services;
+﻿using HipBot.Services;
 using Sugar.Command;
 
 namespace HipBot.Commands.Nicknames

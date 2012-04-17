@@ -1,15 +1,5 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
-using System.IO.Compression;
-using System.Security.AccessControl;
-using HipBot.Core;
-using HipBot.Interfaces.Services;
-using SevenZipLib;
-using Sugar;
+﻿using HipBot.Services;
 using Sugar.Command;
-using Sugar.IO;
-using Sugar.Net;
 
 namespace HipBot.Commands.AutoUpdate
 {

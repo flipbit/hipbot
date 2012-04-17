@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using HipBot.Domain;
-using HipBot.Interfaces.Handlers;
-using HipBot.Interfaces.Services;
+using HipBot.Handlers;
 
 namespace HipBot.Services
 {
@@ -35,6 +34,14 @@ namespace HipBot.Services
         /// The alias service.
         /// </value>
         public IAliasService AliasService { get; set; }
+
+        /// <summary>
+        /// Gets or sets the hip chat service.
+        /// </summary>
+        /// <value>
+        /// The hip chat service.
+        /// </value>
+        public IHipChatService HipChatService { get; set; }
 
         #endregion
 
@@ -71,6 +78,8 @@ namespace HipBot.Services
                 message.Body = message.Body.Substring(1);
             }
 
+            var handled = false;
+
             // Check each handler
             foreach (var handler in Handlers)
             {
@@ -78,7 +87,14 @@ namespace HipBot.Services
 
                 handler.Receive(message, room);
 
+                handled = true;
+
                 break;
+            }
+
+            if (!handled)
+            {
+                HipChatService.Say(room, "I didn't understand: {0}", message.Body);
             }
         }
 

@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{04828B68-A0B4-4A5B-9A09-1CD6A0B8703D}</ProjectGuid>
+    <ProjectGuid>{9488FC79-AFDE-4A1B-83CB-A9304993EDC5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>HipBot</RootNamespace>
-    <AssemblyName>HipBot.Test</AssemblyName>
+    <AssemblyName>HipBot.Interfaces</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,16 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMoq">
-      <HintPath>..\..\References\Moq\AutoMoq.dll</HintPath>
+    <Reference Include="Sugar">
+      <HintPath>..\..\References\Sugar\Sugar.dll</HintPath>
     </Reference>
-    <Reference Include="Moq">
-      <HintPath>..\..\References\Moq\Moq.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>..\..\References\NUnit\nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="Sugar, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -50,40 +43,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\System\LoginTest.cs" />
-    <Compile Include="FakeHttpResponse.cs" />
-    <Compile Include="Handlers\Aliases\AddAliasTest.cs" />
-    <Compile Include="Handlers\Aliases\RemoveAliasTest.cs" />
-    <Compile Include="Handlers\FakeHandler.cs" />
-    <Compile Include="Handlers\Nicknames\AddNicknameTest.cs" />
-    <Compile Include="Handlers\Nicknames\RemoveNicknameTest.cs" />
+    <Compile Include="Domain\Credentials.cs" />
+    <Compile Include="Domain\Message.cs" />
+    <Compile Include="Domain\Room.cs" />
+    <Compile Include="Domain\User.cs" />
+    <Compile Include="Events\LoginEventArgs.cs" />
+    <Compile Include="Events\MessageEventArgs.cs" />
+    <Compile Include="Handlers\Handler.cs" />
+    <Compile Include="Handlers\IHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\AliasServiceTest.cs" />
-    <Compile Include="Services\HandlerServiceTest.cs" />
-    <Compile Include="Services\RoomServiceTest.cs" />
-    <Compile Include="Services\CredentialServiceTest.cs" />
-    <Compile Include="Services\NicknameServiceTest.cs" />
-    <Compile Include="Services\UpdateServiceTest.cs" />
-    <Compile Include="Services\UserServiceTest.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\HipBot.Core\HipBot.Core.csproj">
-      <Project>{3E2D69A3-6E8F-4B6F-8489-9CA052D6E009}</Project>
-      <Name>HipBot.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\HipBot.Interfaces\HipBot.Interfaces.csproj">
-      <Project>{9488FC79-AFDE-4A1B-83CB-A9304993EDC5}</Project>
-      <Name>HipBot.Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\HipBot\HipBot.csproj">
-      <Project>{6C1D12E9-0D15-41F3-ABD5-02F19669A52A}</Project>
-      <Name>HipBot</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Examples\RoomList.xml" />
-    <Content Include="Examples\UserList.xml" />
-    <Content Include="Examples\UserShow.xml" />
+    <Compile Include="Services\IAliasService.cs" />
+    <Compile Include="Services\IConfigService.cs" />
+    <Compile Include="Services\ICredentialService.cs" />
+    <Compile Include="Services\IHandlerService.cs" />
+    <Compile Include="Services\IHipChatService.cs" />
+    <Compile Include="Services\INicknameService.cs" />
+    <Compile Include="Services\IRoomService.cs" />
+    <Compile Include="Services\IUpdateService.cs" />
+    <Compile Include="Services\IUserService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

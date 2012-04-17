@@ -1,5 +1,5 @@
 ﻿using HipBot.Core;
-using HipBot.Interfaces.Services;
+using HipBot.Services;
 using Sugar;
 using Sugar.Command;
 

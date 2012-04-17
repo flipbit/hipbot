@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
-using HipBot.Interfaces.Services;
 using SevenZipLib;
 using Sugar;
 using Sugar.IO;

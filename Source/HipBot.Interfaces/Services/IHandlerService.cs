@@ -1,6 +1,6 @@
 ﻿using HipBot.Domain;
 
-namespace HipBot.Interfaces.Services
+namespace HipBot.Services
 {
     /// <summary>
     /// Interface for handling incoming messages.

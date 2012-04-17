@@ -1,5 +1,4 @@
 ﻿using HipBot.Domain;
-using HipBot.Interfaces.Handlers;
 
 namespace HipBot.Handlers
 {

@@ -1,11 +1,10 @@
 ﻿using System.ComponentModel.Composition;
 using System.Diagnostics;
 using HipBot.Domain;
-using HipBot.Interfaces.Handlers;
-using HipBot.Interfaces.Services;
+using HipBot.Services;
 using Sugar.Command;
 
-namespace HipBot.Handlers
+namespace HipBot.Handlers.System
 {
     /// <summary>
     /// Displays the current CPU usage

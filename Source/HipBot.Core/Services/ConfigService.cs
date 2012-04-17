@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using HipBot.Interfaces.Services;
 using Sugar.Configuration;
 using Sugar.IO;
 

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using HipBot.Domain;
 
-namespace HipBot.Interfaces.Services
+namespace HipBot.Services
 {
     /// <summary>
     /// Interface for the User service

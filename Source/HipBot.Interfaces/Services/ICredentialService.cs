@@ -1,6 +1,6 @@
 ﻿using HipBot.Domain;
 
-namespace HipBot.Interfaces.Services
+namespace HipBot.Services
 {
     /// <summary>
     /// Service interface for storing and retrieving HipChat credentials.

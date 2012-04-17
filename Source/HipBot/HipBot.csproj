@@ -88,9 +88,9 @@
       <Project>{3E2D69A3-6E8F-4B6F-8489-9CA052D6E009}</Project>
       <Name>HipBot.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HipBot.Handlers\HipBot.Handlers.csproj">
-      <Project>{0949C9E7-329D-4F54-8273-72B1EA1CAA0D}</Project>
-      <Name>HipBot.Handlers</Name>
+    <ProjectReference Include="..\HipBot.Interfaces\HipBot.Interfaces.csproj">
+      <Project>{9488FC79-AFDE-4A1B-83CB-A9304993EDC5}</Project>
+      <Name>HipBot.Interfaces</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,4 +1,4 @@
-﻿namespace HipBot.Interfaces.Services
+﻿namespace HipBot.Services
 {
     /// <summary>
     /// Interface for the Automatic Update service

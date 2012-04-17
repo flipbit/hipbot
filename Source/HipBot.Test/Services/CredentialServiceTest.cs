@@ -1,5 +1,4 @@
 ﻿using HipBot.Domain;
-using HipBot.Interfaces.Services;
 using Moq;
 using NUnit.Framework;
 using Sugar.Configuration;

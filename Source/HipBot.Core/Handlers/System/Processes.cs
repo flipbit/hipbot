@@ -5,11 +5,10 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using HipBot.Domain;
-using HipBot.Interfaces.Handlers;
-using HipBot.Interfaces.Services;
+using HipBot.Services;
 using Sugar.Command;
 
-namespace HipBot.Handlers
+namespace HipBot.Handlers.System
 {
     /// <summary>
     /// Displays the current processes running

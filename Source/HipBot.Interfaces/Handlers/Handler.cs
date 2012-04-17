@@ -1,5 +1,4 @@
 ﻿using HipBot.Domain;
-using HipBot.Interfaces.Handlers;
 using Sugar.Command;
 
 namespace HipBot.Handlers

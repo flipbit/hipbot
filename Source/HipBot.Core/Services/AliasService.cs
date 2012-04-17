@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using HipBot.Interfaces.Services;
 
 namespace HipBot.Services
 {

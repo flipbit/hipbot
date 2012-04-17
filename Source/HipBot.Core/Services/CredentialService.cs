@@ -1,5 +1,4 @@
 ﻿using HipBot.Domain;
-using HipBot.Interfaces.Services;
 
 namespace HipBot.Services
 {

@@ -5,8 +5,8 @@ using System.ComponentModel.Composition.Hosting;
 using System.IO;
 using System.Reflection;
 using HipBot.Core;
-using HipBot.Interfaces.Handlers;
-using HipBot.Interfaces.Services;
+using HipBot.Domain;
+using HipBot.Handlers;
 using HipBot.Services;
 using Sugar.Command;
 
@@ -55,8 +55,16 @@ namespace HipBot
             //Create the CompositionContainer with the parts in the catalog
             var container = new CompositionContainer(catalog);
 
-            //Fill the imports of this object
-            container.ComposeParts(this);
+            try
+            {
+                //Fill the imports of this object
+                container.ComposeParts(this);
+            }
+            catch (Exception ex)
+            {
+                Out.WriteLine("Unable to load plugins: {0}", ex.Message);
+            }
+
         }
 
         void directoryCatalog_Changing(object sender, ComposablePartCatalogChangeEventArgs e)
@@ -109,6 +117,7 @@ namespace HipBot
             DoImport();
 
             // Register types
+            Stencil.Defaults.Assemblies.Add(typeof(Room).Assembly);
             Stencil.Defaults.Assemblies.Add(typeof(Program).Assembly);
             Stencil.Defaults.Assemblies.Add(typeof(Stencil).Assembly);
             Stencil.Defaults.Assemblies.Add(typeof(ICommand).Assembly);

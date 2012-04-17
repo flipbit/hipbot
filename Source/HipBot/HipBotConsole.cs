@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading;
 using HipBot.Core;
 using HipBot.Events;
-using HipBot.Interfaces.Services;
+using HipBot.Services;
 using Sugar.Command;
 
 namespace HipBot

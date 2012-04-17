@@ -8,7 +8,6 @@ using agsXMPP.Xml.Dom;
 using HipBot.Core;
 using HipBot.Domain;
 using HipBot.Events;
-using HipBot.Interfaces.Services;
 using Message = HipBot.Domain.Message;
 using Msg = agsXMPP.protocol.client.Message;
 

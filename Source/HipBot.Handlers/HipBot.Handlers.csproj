@@ -42,11 +42,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Handlers\Recycle.cs" />
-    <Compile Include="Handlers\Update.cs" />
-    <Compile Include="Handlers\Processes.cs" />
-    <Compile Include="Handlers\Exec.cs" />
-    <Compile Include="Handlers\Cpu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -54,6 +49,9 @@
       <Project>{3E2D69A3-6E8F-4B6F-8489-9CA052D6E009}</Project>
       <Name>HipBot.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Handlers\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel.Composition;
 using System.Diagnostics;
+using System.Text;
 using HipBot.Core;
 using HipBot.Domain;
-using HipBot.Interfaces.Handlers;
-using HipBot.Interfaces.Services;
+using HipBot.Services;
 using Sugar.Command;
 
-namespace HipBot.Handlers
+namespace HipBot.Handlers.System
 {
     /// <summary>
     /// Displays the current CPU usage
@@ -40,6 +40,8 @@ namespace HipBot.Handlers
         /// <param name="options">The options.</param>
         public override void Receive(Message message, Room room, Options options)
         {
+            var sb = new StringBuilder();
+
             var process = new Process
             {              
                 StartInfo =
@@ -51,7 +53,7 @@ namespace HipBot.Handlers
                 }
             };
 
-            process.OutputDataReceived += (sender, args) => HipChatService.Say(room, args.Data);
+            process.OutputDataReceived += new DataReceivedEventHandler(process_OutputDataReceived);
 
             Out.WriteLine("Starting Process");
 
@@ -61,6 +63,11 @@ namespace HipBot.Handlers
             process.WaitForExit();
 
             Out.WriteLine("Finished Process");
+        }
+
+        void process_OutputDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            throw new global::System.NotImplementedException();
         }
     }
 }

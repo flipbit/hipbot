@@ -1,5 +1,5 @@
 ﻿using HipBot.Domain;
-using HipBot.Interfaces.Services;
+using HipBot.Services;
 using Moq;
 using NUnit.Framework;
 
