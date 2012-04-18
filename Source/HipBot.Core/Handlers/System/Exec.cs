@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using HipBot.Core;
 using HipBot.Domain;
@@ -17,17 +18,38 @@ namespace HipBot.Handlers.System
     [Export(typeof(IHandler))]
     public class Exec : Handler<Exec.Options>
     {
-        [Flag("exec")]
         public class Options
         {
-            [Parameter("-file")]
+            /// <summary>
+            /// Gets or sets the name of the file.
+            /// </summary>
+            /// <value>
+            /// The name of the file.
+            /// </value>
+            [Parameter("exec", Required = true)]
             public string FileName { get; set; }
 
-            [Parameter("-args")]
+            /// <summary>
+            /// Gets or sets the arguments.
+            /// </summary>
+            /// <value>
+            /// The arguments.
+            /// </value>
+            [Parameter("args")]
             public string Arguments { get; set; }
+
+            /// <summary>
+            /// Gets or sets the status.
+            /// </summary>
+            /// <value>
+            /// The status.
+            /// </value>
+            [Parameter("status")]
+            public string Status { get; set; }
         }
 
-        private IList<string> lines = new List<string>();
+        private readonly IList<string> lines = new List<string>();
+        private bool executing;
 
         /// <summary>
         /// Gets or sets the hip chat service.
@@ -45,7 +67,17 @@ namespace HipBot.Handlers.System
         /// <param name="options">The options.</param>
         public override void Receive(Message message, Room room, Options options)
         {
-            HipChatService.Say(room, "Starting process..");
+            if (executing)
+            {
+                HipChatService.Say(room, "Can't you see, I'm busy!");
+
+                return;                
+            }
+
+            var start = DateTime.Now;
+
+            HipChatService.Say(room, "Starting: {0}", options.FileName);
+            HipChatService.SetStatus(Status.Busy, options.Status);
 
             lines.Clear();
 
@@ -64,15 +96,33 @@ namespace HipBot.Handlers.System
 
             Out.WriteLine("Starting Process");
 
-            process.Start();
-            process.BeginOutputReadLine();
+            try
+            {
+                executing = true;
 
-            process.WaitForExit();
+                Out.WriteLine("Starting Process");
 
-            Out.WriteLine("Finished Process");
+                process.Start();
+                process.BeginOutputReadLine();
+                process.WaitForExit();
+
+                Out.WriteLine("Finished Process");
+
+                var time = DateTime.Now - start;
+                HipChatService.Say(room, "Finished process in {0}:{1:00} minutes.", time.Minutes, time.Seconds);
+            }
+            catch (Exception ex)
+            {
+                Out.WriteLine("Error: " + ex.Message);
+                HipChatService.Say(room, "Error: " + ex.Message);
+            }
+            finally
+            {
+                executing = false;
+                HipChatService.SetStatus(Status.Available, string.Empty);                
+            }
 
             var result = lines.Join(Environment.NewLine);
-
             HipChatService.SayHtml(room, result);
         }
 
@@ -80,7 +130,15 @@ namespace HipBot.Handlers.System
         {
             if (!string.IsNullOrWhiteSpace(e.Data))
             {
-                lines.Add(e.Data);
+                var chars = Enumerable
+                    .Range(0, char.MaxValue + 1)
+                    .Select(i => (char)i)
+                    .Where(c => !char.IsControl(c))
+                    .ToArray();
+
+                var toKeep = new string(chars);
+
+                lines.Add(e.Data.Keep(toKeep));
 
                 if (lines.Count > 30)
                 {

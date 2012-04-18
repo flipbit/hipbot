@@ -10,6 +10,7 @@ using HipBot.Domain;
 using HipBot.Events;
 using Message = HipBot.Domain.Message;
 using Msg = agsXMPP.protocol.client.Message;
+using Status = HipBot.Domain.Status;
 
 namespace HipBot.Services
 {
@@ -245,6 +246,40 @@ namespace HipBot.Services
             }
 
             connection.Send(msg);
+        }
+
+        /// <summary>
+        /// Sets the bot's status.
+        /// </summary>
+        /// <param name="status">The status.</param>
+        /// <param name="message">The message.</param>
+        public void SetStatus(Status status, string message)
+        {
+            // Ensure we're logged in
+            if (!LoggedIn) return;         
+
+            switch (status)
+            {
+                case Status.Available:
+                    connection.Show = ShowType.NONE;
+                    break;
+
+                case Status.Away:
+                    connection.Show = ShowType.away;
+                    break;
+                    
+                case Status.Busy:
+                    connection.Show = ShowType.dnd;
+                    break;
+
+                default:
+                    throw new ApplicationException("Unknown status type: " + status);
+
+            }
+
+            connection.Status = message;
+
+            connection.SendMyPresence();
         }
     }
 }

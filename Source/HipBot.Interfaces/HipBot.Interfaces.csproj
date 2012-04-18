@@ -46,6 +46,7 @@
     <Compile Include="Domain\Credentials.cs" />
     <Compile Include="Domain\Message.cs" />
     <Compile Include="Domain\Room.cs" />
+    <Compile Include="Domain\Status.cs" />
     <Compile Include="Domain\User.cs" />
     <Compile Include="Events\LoginEventArgs.cs" />
     <Compile Include="Events\MessageEventArgs.cs" />

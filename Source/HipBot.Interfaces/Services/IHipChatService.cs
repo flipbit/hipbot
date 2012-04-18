@@ -76,5 +76,11 @@ namespace HipBot.Services
         /// <param name="args">The args.</param>
         void SayHtml(Room room, string message, params object[] args);
 
+        /// <summary>
+        /// Sets the bot's status.
+        /// </summary>
+        /// <param name="status">The status.</param>
+        /// <param name="message">The message.</param>
+        void SetStatus(Status status, string message);
     }
 }

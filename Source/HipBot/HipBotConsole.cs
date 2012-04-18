@@ -69,6 +69,13 @@ namespace HipBot
         {
             Out.WriteLine("{0:HH:mm:ss} [{1}] {2}", e.Message.Received, e.Message.From, e.Message.Body);
 
+            ThreadPool.QueueUserWorkItem(OnMessageCallback, e);
+        }
+
+        void OnMessageCallback(object parameters)
+        {
+            var e = (MessageEventArgs) parameters;
+
             HandlerService.Handle(e.Message, e.Room);
         }
 
