@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using HipBot.Domain;
 using HipBot.Services;
+using Sugar;
 using Sugar.Command;
 
 namespace HipBot.Handlers.System
@@ -33,8 +34,7 @@ namespace HipBot.Handlers.System
             var location = typeof (Version).Assembly.Location;
             var built = File.GetLastWriteTime(location);
 
-            HipChatService.Say(room, "Version: {0}", assembly);
-            HipChatService.Say(room, "Built: {0:dd MMM yyyy} at {0:HH:mm}", built);
+            HipChatService.Say(room, "Version: {0} - Built: {0:dd MMM yyyy} at {0:HH:mm} ({1})", assembly, built, built.ToTimeAgo());
         }
     }
 }

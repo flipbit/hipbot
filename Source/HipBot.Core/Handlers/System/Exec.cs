@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using HipBot.Core;
 using HipBot.Domain;
 using HipBot.Services;
@@ -51,6 +50,8 @@ namespace HipBot.Handlers.System
         private readonly IList<string> lines = new List<string>();
         private bool executing;
 
+        #region Dependencies
+        
         /// <summary>
         /// Gets or sets the hip chat service.
         /// </summary>
@@ -58,6 +59,8 @@ namespace HipBot.Handlers.System
         /// The hip chat service.
         /// </value>
         public IHipChatService HipChatService { get; set; }
+
+        #endregion
 
         /// <summary>
         /// Receives the specified message.
@@ -138,7 +141,9 @@ namespace HipBot.Handlers.System
 
                 var toKeep = new string(chars);
 
-                lines.Add(e.Data.Keep(toKeep));
+                var line = e.Data.Keep(toKeep).TrimTo(80, string.Empty);
+
+                lines.Add(line);
 
                 if (lines.Count > 30)
                 {
