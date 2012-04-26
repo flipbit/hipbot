@@ -98,19 +98,18 @@ namespace HipBot
         {
             In.OnInput += In_OnInput;
 
+            In.DynamicPrompt = () => { return string.Format("{0:HH:mm:ss}>", DateTime.Now); };
+
+            Out.WriteLine("|cyan|HipBot.|gray|");
+
             In.Listen();
 
-            Console.WriteLine("HipBot.");
-
-          
             if (CredentialService.CredentialsSet())
             {
                 var credentials = CredentialService.GetCredentials();
 
                 HipChatService.Login(credentials);
             }
-
-            Console.Write("{0:HH:mm:ss} >", DateTime.Now);
 
             while (true)
             {
@@ -128,8 +127,6 @@ namespace HipBot
             {
                 Console.WriteLine("Unknown command: {0}", Arguments.FirstOrDefault());
             }
-
-            Console.Write("{0:HH:mm:ss} >", DateTime.Now);
         }      
     }
 }

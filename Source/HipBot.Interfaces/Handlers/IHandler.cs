@@ -3,7 +3,7 @@
 namespace HipBot.Handlers
 {
     /// <summary>
-    /// Interface to define the handling of incomming messages
+    /// Interface to define the handling of incoming messages
     /// </summary>
     public interface IHandler
     {

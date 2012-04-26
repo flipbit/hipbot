@@ -75,6 +75,8 @@ namespace HipBot.Services
             var config = ConfigService.GetConfig();
 
             config.Delete("Aliases", name);
+
+            ConfigService.SetConfig(config);
         }
 
         /// <summary>

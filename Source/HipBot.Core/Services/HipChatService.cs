@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Timers;
 using agsXMPP;
 using agsXMPP.protocol.client;
 using agsXMPP.protocol.extensions.chatstates;
@@ -21,6 +22,18 @@ namespace HipBot.Services
     {
         private XmppClientConnection connection;
         private Credentials current;
+        private readonly Timer timer;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HipChatService"/> class.
+        /// </summary>
+        public HipChatService()
+        {
+            timer = new Timer();
+
+            timer.Elapsed += timer_Elapsed;
+            timer.Interval = 60000;
+        }
 
         #region Events
         
@@ -112,7 +125,8 @@ namespace HipBot.Services
         void ConnectionOnError(object sender, Exception ex)
         {
             Out.WriteLine(ex.Message);
-        } 
+        }
+ 
         #endregion
 
         /// <summary>
@@ -140,6 +154,19 @@ namespace HipBot.Services
             connection.Open(credentials.JabberId, credentials.Password, "bot");
 
             current = credentials;
+        }
+
+        /// <summary>
+        /// Pings the HipChat server to ensure the client stays logged in.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Timers.ElapsedEventArgs"/> instance containing the event data.</param>
+        void timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            if (LoggedIn)
+            {
+                connection.SendMyPresence();
+            }
         }
 
         /// <summary>

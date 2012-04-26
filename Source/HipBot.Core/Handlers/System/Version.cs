@@ -34,7 +34,7 @@ namespace HipBot.Handlers.System
             var location = typeof (Version).Assembly.Location;
             var built = File.GetLastWriteTime(location);
 
-            HipChatService.Say(room, "Version: {0} - Built: {0:dd MMM yyyy} at {0:HH:mm} ({1})", assembly, built, built.ToTimeAgo());
+            HipChatService.Say(room, "Version: {0} - Built: {1:dd MMM yyyy} at {1:HH:mm} ({2})", assembly, built, built.ToTimeAgo());
         }
     }
 }

@@ -59,6 +59,7 @@
     <Compile Include="Commands\Authentication\SetUser.cs" />
     <Compile Include="Commands\AutoUpdate\UpdateNow.cs" />
     <Compile Include="Commands\AutoUpdate\SetUrl.cs" />
+    <Compile Include="Commands\System\Help.cs" />
     <Compile Include="Commands\System\Exit.cs" />
     <Compile Include="Commands\Nicknames\AddNickname.cs" />
     <Compile Include="Commands\Rooms\JoinRoom.cs" />
